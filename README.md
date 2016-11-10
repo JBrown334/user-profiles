@@ -129,7 +129,7 @@ We'll start in `userCtrl.js`. First create your module.exports object. The data 
 
 * Create a method on our exports object named `login`, this method should loop through the users array, find the user that matches `req.body.name` and confirm
   that the `req.body.password` matches the user's password. (If you use .filter instead, be aware that it will always return an array, so you'll need to grab what is in index 0.)
-* If we find a match we need to set `req.session.currentUser` equal to to the correct user object and `res.send({ userFound: true });`.
+* If we find a match we need to set `req.session.currentUser` equal to the correct user object and `res.send({ userFound: true });`.
 * If we don't find the user, we will need to `res.send({ userFound: false });`.
 * This function will need an endpoint, let's create a 'POST' endpoint on the path `'/api/login'` and have it call our newly created login method.
 
@@ -178,7 +178,7 @@ To start, you'll notice that our `mainCtrl.js` is calling the `login` function i
 your `login` endpoint, sending the `user` object we received from our controller.
 
 Next, we need to write the `getFriends` method in `friendService.js` so that it sends a `GET`
-request to our `/api/profiles` endpoint. 
+request to our `/api/profiles` endpoint.
 
 Lastly, in `profileCtrl.js` you will need to assign the correct values (coming from the `getFriends` method in your service) to `$scope.currentUser` and `$scope.friends`.
 

@@ -22,16 +22,18 @@ var profiles = [
 ];
 
 module.exports = {
+  getCurrentUser: function(req, res) {
+     var friends = req.session.currentUser.friends;
 
-  filterProfile: function(req)  {
-    return req.session.currentUser.friends;
-  },
+     var filteredFriends = profiles.filter(function(item){
+        for(var i = 0; i < friends.length; i++){
+         return item.name === friends[i];
+        }
+         });
 
-  friendsPush: function(req, res){
-    for (var i = 0; i < req.session.currentUser.friends.length; i ++)  {
-      if (req.session.currentUser.friends[i] === profiles.filter(filterProfile(req)))  {
-        req.session.currenUser.friends.push();
-      }
-    }
-  }
+     res.status(200).send({
+       currentUser: req.session.currentUser,
+       friends: filteredFriends
+     });
+   }
 };

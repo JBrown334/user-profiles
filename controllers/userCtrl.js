@@ -22,13 +22,19 @@ var users = [
 ];
 
 module.exports = {
-  login: function(req, res)  {
-    for (var i = 0; i < users.length; i++)  {
-      if (req.body.name === users.name && req.body.password === users.password)  {
-        req.session.currentUser = users[i];
-        res.send({userFound: true});
+  login: function(req, res) {
+      var filtered = users.filter(function(item){
+        return item.name === req.body.name;
+      });
+      if(filtered[0]){
+        if(filtered[0].password === req.body.password) {
+          req.session.currentUser = filtered[0];
+          console.log('USER FOUND');
+          res.status(200).send({userFound: true});
       }
+    } else {
+    console.log('USER NOT FOUND!');
+    res.status(401).send({userFound: false});
     }
-    res.send({userFound: false});
   }
 };
